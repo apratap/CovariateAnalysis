@@ -1,3 +1,8 @@
+library(ggdendro)
+library(ggplot2)
+library(reshape)
+library(grid)
+
 mydplot <- function(ddata, row=!col, col=!row, labels=col) {
   ## plot a dendrogram
   yrange <- range(ddata$segments$y)

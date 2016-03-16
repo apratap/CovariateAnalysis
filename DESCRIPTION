@@ -2,8 +2,10 @@ Package: CovariateAnalysis
 Type: Package
 Title: Covariate analysis utility functions
 Version: 0.1.0
-Authors@R: person("Perumal", "Thanneer Malai", email="thanneer.perumal@sagebase.org", role = c("aut", "cre"))
-Maintainer: person("Perumal", "Thanneer Malai", email="thanneer.perumal@sagebase.org", role = c("aut", "cre"))
+Authors@R: c(
+    person("Perumal", "Thanneer Malai", email = "thanneer.perumal@sagebase.org", role = c("aut","cre")),
+    person("Former", "Menachem", role = "aut"))
+Maintainer@R: person("Perumal", "Thanneer Malai", email="thanneer.perumal@sagebase.org")
 Description: Utility functions to perform covariate analysis of high throughput omics data
 License: GPLv3
 LazyData: TRUE

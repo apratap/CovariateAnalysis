@@ -1,9 +1,22 @@
 Package: CovariateAnalysis
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Covariate analysis utility functions
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Authors@R: c(
+    person("Perumal", "Thanneer Malai", email = "thanneer.perumal@sagebase.org", role = c("aut","cre")),
+    person("Former", "Menachem", role = "aut"))
+Maintainer@R: person("Perumal", "Thanneer Malai", email="thanneer.perumal@sagebase.org")
+Description: Utility functions to perform covariate analysis of high throughput omics data
+License: GPLv3
 LazyData: TRUE
+Imports:
+  RColorBrewer,
+  ggplot2,
+  gplots, 
+  ctv,
+  psych,
+  vcd,
+  erer,
+  fpc,
+  ggdendro,
+  reshape

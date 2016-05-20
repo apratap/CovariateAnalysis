@@ -1,8 +1,5 @@
-library(ggdendro)
-library(ggplot2)
-library(reshape)
-library(grid)
-
+require(ggplot2)
+require(ggdendro)
 mydplot <- function(ddata, row=!col, col=!row, labels=col) {
   ## plot a dendrogram
   yrange <- range(ddata$segments$y)
@@ -10,17 +7,16 @@ mydplot <- function(ddata, row=!col, col=!row, labels=col) {
   nc <- max(nchar(as.character(ddata$labels$label)))
   tangle <- if(row) { 0 } else { 90 }
   tshow <- col
-  p <- ggplot() +
-    geom_segment(data=segment(ddata), aes(x=x, y=y, xend=xend, yend=yend)) +
-    labs(x = NULL, y = NULL) + theme_dendro()
+  p <- ggplot2::ggplot() +
+    ggplot2::geom_segment(data=segment(ddata), aes(x=x, y=y, xend=xend, yend=yend)) +
+    ggplot2::labs(x = NULL, y = NULL) + ggdendro::theme_dendro()
   if(row) {
     p <- p +
-      scale_x_continuous(expand=c(0.5/length(ddata$labels$x),0)) +
-      coord_flip()
+      ggplot2::scale_x_continuous(expand=c(0.5/length(ddata$labels$x),0)) +
+      ggplot2::coord_flip()
   } else {
     p <- p +
-      theme(axis.text.x = element_text(angle = 90, hjust = 1))
+      ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1))
   }
   return(p)
 }
-

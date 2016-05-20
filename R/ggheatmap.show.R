@@ -6,30 +6,32 @@
 ##' @return no return value, side effect of displaying plot in current device
 ##' @export
 ##' @author Chris Wallace
+require(grid)
 ggheatmap.show <- function(L, col.width=0.2, row.width=0.2) {
-  grid.newpage()
-  top.layout <- grid.layout(nrow = 2, ncol = 2,
-                            widths = unit(c(1-row.width,row.width), "null"),
-                            heights = unit(c(col.width,1-row.width), "null"))
-  pushViewport(viewport(layout=top.layout))
+  # Function sourced from https://raw.githubusercontent.com/chr1swallace/random-functions/master/R/ggplot-heatmap.R
+  grid::grid.newpage()
+  top.layout <- grid::grid.layout(nrow = 2, ncol = 2,
+                                  widths = unit(c(1-row.width,row.width), "null"),
+                                  heights = unit(c(col.width,1-row.width), "null"))
+  grid::pushViewport(grid::viewport(layout=top.layout))
   if(col.width>0)
-    print(L$col, vp=viewport(layout.pos.col=1, layout.pos.row=1))
+    print(L$col, vp=grid::viewport(layout.pos.col=1, layout.pos.row=1))
   if(row.width>0)
-    print(L$row, vp=viewport(layout.pos.col=2, layout.pos.row=2))
+    print(L$row, vp=grid::viewport(layout.pos.col=2, layout.pos.row=2))
   ## print centre without legend
   print(L$centre +
-          theme(axis.line=element_blank(),
-                axis.text.x=element_blank(),axis.text.y=element_blank(),
-                axis.ticks=element_blank(),
-                axis.title.x=element_blank(),axis.title.y=element_blank(),
-                legend.position="none",
-                panel.background=element_blank(),
-                panel.border=element_blank(),panel.grid.major=element_blank(),
-                panel.grid.minor=element_blank(),plot.background=element_blank()),
-        vp=viewport(layout.pos.col=1, layout.pos.row=2))
+          ggplot2::theme(axis.line=element_blank(),
+                         axis.text.x=element_blank(),axis.text.y=element_blank(),
+                         axis.ticks=element_blank(),
+                         axis.title.x=element_blank(),axis.title.y=element_blank(),
+                         legend.position="none",
+                         panel.background=element_blank(),
+                         panel.border=element_blank(),panel.grid.major=element_blank(),
+                         panel.grid.minor=element_blank(),plot.background=element_blank()),
+        vp=grid::viewport(layout.pos.col=1, layout.pos.row=2))
   ## add legend
   legend <- g_legend(L$centre)
-  pushViewport(viewport(layout.pos.col=2, layout.pos.row=1))
-  grid.draw(legend)
-  upViewport(0)
+  grid::pushViewport(grid::viewport(layout.pos.col=2, layout.pos.row=1))
+  grid::grid.draw(legend)
+  grid::upViewport(0)
 }

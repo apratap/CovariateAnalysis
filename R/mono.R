@@ -1,0 +1,1 @@
+mono <- function(lfdr){.Call("monotone",as.numeric(lfdr),PACKAGE="sva")}

@@ -1,1 +1,4 @@
-mono <- function(lfdr){.Call("monotone",as.numeric(lfdr),PACKAGE="sva")}
+mono <- function(lfdr){
+  library(sva)
+  .Call("monotone",as.numeric(lfdr),PACKAGE="sva")
+}

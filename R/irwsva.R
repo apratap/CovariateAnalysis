@@ -38,13 +38,12 @@ irwsva <- function (dat, mod, mod0 = NULL, block = NULL, n.sv, B = 5)
     ptmp <- CovariateAnalysis::f.pvalue(dat, mod.gam, mod0.gam, block = block)
     pprob.gam <- (1 - CovariateAnalysis::edge.lfdr(ptmp))
     pprob <- pprob.gam * (1 - pprob.b)
-    dats <- dat * pprob
+    dats <- as.matrix(dat) * pprob
     dats <- dats - rowMeans(dats)
     uu <- eigen(t(dats) %*% dats)
     cat(paste(i, " "))
   }
   sv = svd(dats)$v[, 1:n.sv]
-  retval <- list(sv = sv, pprob.gam = pprob.gam, 
-                 pprob.b = pprob.b, n.sv = n.sv)
+  retval <- list(sv = sv, pprob.gam = pprob.gam, pprob.b = pprob.b, n.sv = n.sv)
   return(retval)
 }

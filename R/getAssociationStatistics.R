@@ -1,13 +1,12 @@
 getAssociationStatistics <- function(COVARIATES, PVAL=0.05){
 
   require(plyr)
+  require(ComplexHeatmap)
+  require(circlize)
+
   # Get factor and continuous covariates
   FactorCovariates <- names(COVARIATES)[sapply(COVARIATES,is.factor)]
   ContCovariates <- setdiff(names(COVARIATES),FactorCovariates)
-
-  # Convert factor covariates to numeric vector of factors
-  COVARIATES[,FactorCovariates] <- lapply(COVARIATES[,FactorCovariates],as.numeric)
-  COVARIATES[,FactorCovariates] <- lapply(COVARIATES[,FactorCovariates],as.factor)
 
   # Find association between factor covariates
   if (length(FactorCovariates) > 1){
@@ -26,7 +25,7 @@ getAssociationStatistics <- function(COVARIATES, PVAL=0.05){
 
     colnames(COVARIATES.FACTOR.CORRELATION.PVAL) <- FactorCovariates
     rownames(COVARIATES.FACTOR.CORRELATION.PVAL) <- FactorCovariates
-  } else if (length(FactorCovariates) == 1){
+  } else if (length(FactorCovariates) == 1) {
     COVARIATES.FACTOR.CORRELATION.ESTIMATE <- as.data.frame(1)
     colnames(COVARIATES.FACTOR.CORRELATION.ESTIMATE) <- FactorCovariates
     rownames(COVARIATES.FACTOR.CORRELATION.ESTIMATE) <- FactorCovariates
@@ -105,7 +104,8 @@ getAssociationStatistics <- function(COVARIATES, PVAL=0.05){
   # plot heatmap
   tmp <- COVARIATES.CORRELATION.ESTIMATE
   tmp[COVARIATES.CORRELATION.PVAL>PVAL] <- 0
-  p <- ggheatmap(as.matrix(abs(tmp)),hm.colours=brewer.pal(9,'Reds'))
+  p <- ComplexHeatmap::Heatmap(abs(tmp), name = 'AssociationEstimate',
+                               col = colorRamp2(c(0, 1), c("white", "red")))
 
   return(list(ESTIMATE = COVARIATES.CORRELATION.ESTIMATE, PVAL = COVARIATES.CORRELATION.PVAL, plot=p))
 }
